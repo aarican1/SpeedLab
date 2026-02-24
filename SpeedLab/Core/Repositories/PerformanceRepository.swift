@@ -186,22 +186,22 @@ class PerformanceRepository: ObservableObject{
         
         // --- 0-100 km/h: Accelerometer-assisted end interpolation ---
         if let start = zeroToHundredStartTime {
-            if speed >= 50 {
-                if let v1 = lastProcessedSpeed, let t1 = lastProcessedTime, v1 < 50 {
+            if speed >= 100 {
+                if let v1 = lastProcessedSpeed, let t1 = lastProcessedTime, v1 < 100 {
                     // Use accelerometer integrated speed to estimate sub-second crossing
                     let accelSpeed = motionManager.integratedSpeed
                     let gpsInterval = currentTime.timeIntervalSince(t1)
                     
-                    if accelSpeed >= 50 && gpsInterval > 0 {
+                    if accelSpeed >= 100 && gpsInterval > 0 {
                         // Accelerometer crossed 100 before GPS confirmed — use accel timing
                         // Estimate fraction of interval where accel hit 100
-                        let accelRatio = (50.0 - v1) / (accelSpeed - v1)
+                        let accelRatio = (100.0 - v1) / (accelSpeed - v1)
                         let timeOffset = gpsInterval * accelRatio
                         let finalDuration = t1.timeIntervalSince(start) + timeOffset
                         self.zeroToHundred = max(0, finalDuration)
                     } else {
                         // Standard GPS interpolation (improved with lower threshold)
-                        let ratio = (50.0 - v1) / (speed - v1)
+                        let ratio = (100.0 - v1) / (speed - v1)
                         let timeOffset = gpsInterval * ratio
                         let finalDuration = t1.timeIntervalSince(start) + timeOffset
                         self.zeroToHundred = max(0, finalDuration)
