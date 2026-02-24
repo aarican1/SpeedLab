@@ -1,6 +1,10 @@
 # SpeedLab 🏎️
 
 SpeedLab, aracınızın performansını ve ivmelenmesini ölçmek için geliştirilmiş bir iOS uygulamasıdır. Konum (GPS) ve hareket (Motion) sensörlerini bir arada kullanarak 0-100 km/s hızlanma gibi telemetri verilerini gerçek zamanlı olarak takip eder ve elde ettiği verileri kaydeder.
+<img src="https://github.com/user-attachments/assets/e16a9160-c6f6-4c81-9192-b78e9fed2bc1" width="250">
+<img src="https://github.com/user-attachments/assets/ce3905e8-2009-4e58-a577-95f261e24c79" width="250">
+<img src="https://github.com/user-attachments/assets/380d8438-74a1-42e0-91df-7eaf9cfb191c" width="250">
+
 
 ## Özellikler ✨
 - **Performans Ölçümü:** 0-100 km/s hızlanma süresi gibi ölçümleri otomatik ve hassas olarak gerçekleştirir.
