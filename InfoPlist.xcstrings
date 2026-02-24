@@ -1,7 +1,98 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Speed Lab"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "SpeedLab"
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysAndWhenInUseUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeedLab needs background location access to record your ride route and speed continuously, even while your phone is in your pocket or the app is minimized."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeedLab, telefonunuz cebinizdeyken veya uygulama simge durumuna küçültülmüşken bile sürüş rotanızı ve hızınızı kesintisiz kaydedebilmek için arka plan konum erişimine ihtiyaç duyar."
+          }
+        }
+      }
+    },
+    "NSLocationAlwaysUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This permission allows SpeedLab to ensure your ride data is recorded without interruption while the app runs in the background."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu izin, SpeedLab'in uygulama arka planda çalışırken sürüş verilerinizin kesintisiz olarak kaydedilmesini sağlamasına olanak tanır."
+          }
+        }
+      }
+    },
+    "NSLocationWhenInUseUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeedLab needs location access to track and display your current speed, distance, and route on the map."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeedLab; anlık hızınızı, mesafenizi ve rotanızı harita üzerinde gösterebilmek için konum iznine ihtiyaç duyar."
+          }
+        }
+      }
+    },
+    "NSMotionUsageDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeedLab requires accelerometer data to analyze your ride telemetry and detect movements accurately."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SpeedLab, sürüş telemetrinizi analiz etmek ve hareketleri hassas bir şekilde algılamak için ivmeölçer verilerine ihtiyaç duyar."
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

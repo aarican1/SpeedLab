@@ -12,13 +12,13 @@ struct CustomAlertView: View {
     let message:String
     let primaryTextButton:String
     let onPrimaryAction:()->Void
-    let onCancel: () -> Void
+    var onCancel: (() -> Void)? = nil
     
     var body: some View {
         ZStack{
             Color.deepCharcoal.opacity(0.5)
                 .ignoresSafeArea()
-                .onTapGesture { onCancel() }
+                .onTapGesture { onCancel?   () }
             
             VStack(spacing:20){
                 Image(systemName: "exclamationmark.triangle.fill")
@@ -37,21 +37,21 @@ struct CustomAlertView: View {
                 }
                 
                 HStack(spacing: 12){
-                    Button(action:onCancel) {
-                        Text("Cancel")
-                            .font(.spaceMediumFont(size: 16))
-                            .foregroundStyle(.text)
-                            .frame(maxWidth:.infinity)
-                            .padding(.vertical, 12)
-                            .background(.text.opacity(0.1))
-                            .cornerRadius(12)
-                        
+                    if let cancelAction = onCancel {
+                                            Button(action: cancelAction) {
+                                                Text("Cancel")
+                                                    .font(.spaceMediumFont(size: 16))
+                                                    .foregroundStyle(.text)
+                                                    .frame(maxWidth: .infinity)
+                                                    .padding(.vertical, 12)
+                                                    .background(.text.opacity(0.1))
+                                                    .cornerRadius(12)
+                                            }
+                                        }
                     
-                    }
                     
-                    
-                    Button(action:onCancel) {
-                        Text("Okey")
+                    Button(action:onPrimaryAction) {
+                        Text(primaryTextButton)
                             .font(.spaceMediumFont(size: 16))
                             .foregroundStyle(.text)
                             .frame(maxWidth:.infinity)
@@ -80,7 +80,5 @@ struct CustomAlertView: View {
 #Preview {
     CustomAlertView(title: "Error", message:"Testing alert view message", primaryTextButton: "Okey", onPrimaryAction: {
         print("Primary Button Tapped!")
-    }, onCancel: {
-        print("Cancel Button Tapped!")
-    })
+    }, onCancel: nil)
 }

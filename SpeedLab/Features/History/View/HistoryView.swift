@@ -12,67 +12,77 @@ struct HistoryView: View {
 
     var body: some View {
         NavigationView {
-            List{
-                ForEach(viewModel.sessions, id: \.self) { session in
-                    VStack(alignment: .leading, spacing: 10) {
-                        
-                        HStack {
-                            Text(session.timestamp ?? Date(), style: .date)
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                            
-                            Spacer()
-                            
-                            Text(session.timestamp ?? Date(), style: .time)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
-                        
-                        Divider()
-                      
-                        HStack(spacing: 20) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                InfoRow(label: "Mesafe", value: String(format: "%.2f km", session.distance))
-                                InfoRow(label: "Süre", value: formatDuration(session.duration))
-                            }
-                            Spacer()
-                            
-                            VStack(alignment: .trailing, spacing: 4) {
-                                InfoRow(label: "Max Hız", value: String(format: "%.0f km/h", session.maxSpeed))
-                                InfoRow(label: "Max G", value: String(format: "%.2f G", session.maxGForce))
-                            }
-                        }
-                    
-                        if session.zeroToHundred > 0 || session.zeroToTwoHundred > 0 || session.brakingDistance > 0 {
-                            Divider()
+            if viewModel.isLoading {
+               ProgressView("Driving history is loading...")
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(1.2)
+                
+            } else if viewModel.sessions.isEmpty {
+                NoHistorySessionView()
+            }
+            else {
+                List{
+                    ForEach(viewModel.sessions, id: \.self) { session in
+                        VStack(alignment: .leading, spacing: 10) {
                             
                             HStack {
-                                if session.zeroToHundred > 0 && session.zeroToHundred < 1000 {
-                                    PerformanceBadge(title: "0-100", value: String(format: "%.2fs", session.zeroToHundred))
-                                }
+                                Text(session.timestamp ?? Date(), style: .date)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
                                 
-                                if session.zeroToTwoHundred > 0 && session.zeroToTwoHundred < 1500 {
-                                    Spacer()
-                                    PerformanceBadge(title: "0-200", value: String(format: "%.2fs", session.zeroToTwoHundred))
-                                }
+                                Spacer()
                                 
-                                if session.brakingDistance > 0 && session.brakingDistance < 500  {
-                                    Spacer()
-                                    PerformanceBadge(title: "100-0", value: String(format: "%.1f m", session.brakingDistance), color: .red)
+                                Text(session.timestamp ?? Date(), style: .time)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            
+                            Divider()
+                            
+                            HStack(spacing: 20) {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    InfoRow(label: "Mesafe", value: String(format: "%.2f km", session.distance))
+                                    InfoRow(label: "Süre", value: formatDuration(session.duration))
+                                }
+                                Spacer()
+                                
+                                VStack(alignment: .trailing, spacing: 4) {
+                                    InfoRow(label: "Max Hız", value: String(format: "%.0f km/h", session.maxSpeed))
+                                    InfoRow(label: "Max G", value: String(format: "%.2f G", session.maxGForce))
+                                }
+                            }
+                            
+                            if session.zeroToHundred > 0 || session.zeroToTwoHundred > 0 || session.brakingDistance > 0 {
+                                Divider()
+                                
+                                HStack {
+                                    if session.zeroToHundred > 0 && session.zeroToHundred < 1000 {
+                                        PerformanceBadge(title: "0-100", value: String(format: "%.2fs", session.zeroToHundred))
+                                    }
+                                    
+                                    if session.zeroToTwoHundred > 0 && session.zeroToTwoHundred < 1500 {
+                                        Spacer()
+                                        PerformanceBadge(title: "0-200", value: String(format: "%.2fs", session.zeroToTwoHundred))
+                                    }
+                                    
+                                    if session.brakingDistance > 0 && session.brakingDistance < 500  {
+                                        Spacer()
+                                        PerformanceBadge(title: "100-0", value: String(format: "%.1f m", session.brakingDistance), color: .red)
+                                    }
                                 }
                             }
                         }
+                        .padding(.vertical, 8)
+                        
                     }
-                    .padding(.vertical, 8)
-                    
+                    .onDelete(perform: viewModel.deleteSession)
                 }
-                .onDelete(perform: viewModel.deleteSession)
+                .navigationTitle("Drive History")
+                .navigationBarTitleDisplayMode(.inline)
+                .listStyle(.insetGrouped)
+                .listRowSpacing(12)
+                .padding(.bottom, 32)
             }
-            .navigationTitle("Drive History")
-            .navigationBarTitleDisplayMode(.inline)
-            .listStyle(.insetGrouped)
-            .listRowSpacing(12)
-            .padding(.bottom, 32)
         }
     }
     

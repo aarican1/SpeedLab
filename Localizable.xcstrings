@@ -1,7 +1,325 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-
+    "⚠️ IMPORTANT WARNING & DISCLAIMER" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ ÖNEMLİ VE YASAL UYARI"
+          }
+        }
+      }
+    },
+    "0 - 100 Time" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0 - 100 Süresi"
+          }
+        }
+      }
+    },
+    "0 - 200 Time" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0 - 200 Süresi"
+          }
+        }
+      }
+    },
+    "100 - 0 Brake" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "100 - 0 Fren"
+          }
+        }
+      }
+    },
+    "About" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hakkında"
+          }
+        }
+      }
+    },
+    "Allow Access" : {
+      "comment" : "Button title",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İzin ver"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geri"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İptal"
+          }
+        }
+      }
+    },
+    "CURRENT SPEED" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hız"
+          }
+        }
+      }
+    },
+    "Distance" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesafe"
+          }
+        }
+      }
+    },
+    "Drive History" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüş Geçmişi"
+          }
+        }
+      }
+    },
+    "Driving history is loading..." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüş geçmişi yükleniyor..."
+          }
+        }
+      }
+    },
+    "G-Force" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "G-Kuvveti"
+          }
+        }
+      }
+    },
+    "Go to Settings" : {
+      "comment" : "Button title",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ayarlara Git"
+          }
+        }
+      }
+    },
+    "KM/H" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KM/H"
+          }
+        }
+      }
+    },
+    "Location Access Denied" : {
+      "comment" : "Title when location is denied",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konum izni reddedildi"
+          }
+        }
+      }
+    },
+    "Location Required" : {
+      "comment" : "Title when location is not determined",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konum izni gerekli"
+          }
+        }
+      }
+    },
+    "Max-Speed" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maks. Hız"
+          }
+        }
+      }
+    },
+    "Motion sensors are not available on this device. G-Force tracking is disabled." : {
+      "comment" : "Error message for sensor failure",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hareket sensörüne erişilemiyor. G-Kuvveti izlenemiyor."
+          }
+        }
+      }
+    },
+    "No driving has been recorded yet." : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüş henüz kaydedilmedi"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "comment" : "Button title",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tamam"
+          }
+        }
+      }
+    },
+    "Pause" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duraklat"
+          }
+        }
+      }
+    },
+    "Sensor Error" : {
+      "comment" : "Title for sensor error",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sensör Hatası"
+          }
+        }
+      }
+    },
+    "Speed Lab" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Speed Lab"
+          }
+        }
+      }
+    },
+    "Speed measurement requires location access. Please enable it in Settings." : {
+      "comment" : "Error message for denied location",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hız ölçümü için konum erişimine ihtiyaç duyulmaktadır. Lütfen Ayarlar'dan bu özelliği etkinleştirin."
+          }
+        }
+      }
+    },
+    "Start Session" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürüşü başlat"
+          }
+        }
+      }
+    },
+    "Stop" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durdur"
+          }
+        }
+      }
+    },
+    "This app is designed to measure performance metrics like 0-100, 0-200, 100-0, and top speed; however, all measurements rely on GPS and device sensors, which may contain margins of error due to environmental factors. These results are not a substitute for professional equipment. All tests must be conducted strictly on closed tracks or private roads following safe riding principles. The developer shall not be held liable for any accidents, material or moral damages, or legal violations resulting from the use of this app; all risks are assumed by the user" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu uygulama 0-100, 0-200, 100-0 ve maksimum hız gibi performans değerlerini ölçmek için tasarlanmıştır; ancak tüm ölçümler GPS ve cihaz sensörlerine dayandığından çevresel faktörlere bağlı hata payları içerebilir. Bu sonuçlar profesyonel ekipmanların yerini tutmaz. Tüm testler kesinlikle kapalı pistlerde veya trafiğe kapalı alanlarda, güvenli sürüş prensiplerine uygun olarak yapılmalıdır. Uygulamanın kullanımından doğabilecek kaza, maddi veya manevi hasar ya da yasal ihlallerden geliştirici sorumlu tutulamaz; tüm risk kullanıcıya aittir."
+          }
+        }
+      }
+    },
+    "Time" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Süre"
+          }
+        }
+      }
+    },
+    "We need your location to track performance metrics like speed and distance." : {
+      "comment" : "Error message for undetermined location",
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hız ve mesafe gibi performans ölçümlerini takip edebilmemiz için konum bilginize ihtiyacımız var."
+          }
+        }
+      }
+    },
+    "Welcome to" : {
+      "localizations" : {
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoşgeldin"
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

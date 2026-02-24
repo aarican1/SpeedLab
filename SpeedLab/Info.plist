@@ -10,5 +10,16 @@
 		<string>SpaceGrotesk-Regular.ttf</string>
 		<string>SpaceGrotesk-SemiBold.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
+	<key>UILaunchImageFile</key>
+	<string>SpeedLab requires accelerometer data to analyze your ride telemetry and detect movements accurately.</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UILaunchScreen</key>
+		<string>LaunchScreen.storyboard</string>
+	</dict>
 </dict>
 </plist>

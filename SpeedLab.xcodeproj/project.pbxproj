@@ -6,13 +6,48 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		99517D942F2A3ED200A52FE5 /* SpaceGrotesk-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99517D922F2A3ED200A52FE5 /* SpaceGrotesk-Regular.ttf */; };
+		99517D952F2A3ED200A52FE5 /* SpaceGrotesk-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99517D912F2A3ED200A52FE5 /* SpaceGrotesk-Medium.ttf */; };
+		99517D962F2A3ED200A52FE5 /* SpaceGrotesk-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99517D8F2F2A3ED200A52FE5 /* SpaceGrotesk-Bold.ttf */; };
+		99517D972F2A3ED200A52FE5 /* SpaceGrotesk-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99517D932F2A3ED200A52FE5 /* SpaceGrotesk-SemiBold.ttf */; };
+		99517D982F2A3ED200A52FE5 /* SpaceGrotesk-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99517D902F2A3ED200A52FE5 /* SpaceGrotesk-Light.ttf */; };
+		99517D9F2F2A592200A52FE5 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 99517D9E2F2A592200A52FE5 /* Localizable.xcstrings */; };
+		99517DC72F2A5D9900A52FE5 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 99517DC62F2A5D9900A52FE5 /* InfoPlist.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		993E35B82F27DA73002B4345 /* SpeedLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99517D8F2F2A3ED200A52FE5 /* SpaceGrotesk-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Bold.ttf"; sourceTree = "<group>"; };
+		99517D902F2A3ED200A52FE5 /* SpaceGrotesk-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Light.ttf"; sourceTree = "<group>"; };
+		99517D912F2A3ED200A52FE5 /* SpaceGrotesk-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Medium.ttf"; sourceTree = "<group>"; };
+		99517D922F2A3ED200A52FE5 /* SpaceGrotesk-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-Regular.ttf"; sourceTree = "<group>"; };
+		99517D932F2A3ED200A52FE5 /* SpaceGrotesk-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpaceGrotesk-SemiBold.ttf"; sourceTree = "<group>"; };
+		99517D9E2F2A592200A52FE5 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		99517DC62F2A5D9900A52FE5 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		99517DC12F2A5C4100A52FE5 /* Exceptions for "SpeedLab" folder in "SpeedLab" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 993E35B72F27DA73002B4345 /* SpeedLab */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		993E35BA2F27DA73002B4345 /* SpeedLab */ = {
+		9912BE1A2F3621670046BDF5 /* LaunchScreen */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		99517DBB2F2A5C4000A52FE5 /* SpeedLab */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				99517DC12F2A5C4100A52FE5 /* Exceptions for "SpeedLab" folder in "SpeedLab" target */,
+			);
 			path = SpeedLab;
 			sourceTree = "<group>";
 		};
@@ -32,8 +67,16 @@
 		993E35AF2F27DA73002B4345 = {
 			isa = PBXGroup;
 			children = (
-				993E35BA2F27DA73002B4345 /* SpeedLab */,
+				9912BE1A2F3621670046BDF5 /* LaunchScreen */,
+				99517DC62F2A5D9900A52FE5 /* InfoPlist.xcstrings */,
+				99517DBB2F2A5C4000A52FE5 /* SpeedLab */,
+				99517D9E2F2A592200A52FE5 /* Localizable.xcstrings */,
 				993E35B92F27DA73002B4345 /* Products */,
+				99517D8F2F2A3ED200A52FE5 /* SpaceGrotesk-Bold.ttf */,
+				99517D902F2A3ED200A52FE5 /* SpaceGrotesk-Light.ttf */,
+				99517D912F2A3ED200A52FE5 /* SpaceGrotesk-Medium.ttf */,
+				99517D922F2A3ED200A52FE5 /* SpaceGrotesk-Regular.ttf */,
+				99517D932F2A3ED200A52FE5 /* SpaceGrotesk-SemiBold.ttf */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,7 +104,8 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				993E35BA2F27DA73002B4345 /* SpeedLab */,
+				9912BE1A2F3621670046BDF5 /* LaunchScreen */,
+				99517DBB2F2A5C4000A52FE5 /* SpeedLab */,
 			);
 			name = SpeedLab;
 			packageProductDependencies = (
@@ -91,6 +135,7 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
 			);
 			mainGroup = 993E35AF2F27DA73002B4345;
 			minimizedProjectReferenceProxies = 1;
@@ -109,6 +154,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99517D942F2A3ED200A52FE5 /* SpaceGrotesk-Regular.ttf in Resources */,
+				99517D952F2A3ED200A52FE5 /* SpaceGrotesk-Medium.ttf in Resources */,
+				99517D962F2A3ED200A52FE5 /* SpaceGrotesk-Bold.ttf in Resources */,
+				99517D972F2A3ED200A52FE5 /* SpaceGrotesk-SemiBold.ttf in Resources */,
+				99517D982F2A3ED200A52FE5 /* SpaceGrotesk-Light.ttf in Resources */,
+				99517D9F2F2A592200A52FE5 /* Localizable.xcstrings in Resources */,
+				99517DC72F2A5D9900A52FE5 /* InfoPlist.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +237,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -242,6 +295,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -252,25 +306,37 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TM42YPV273;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpeedLab/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Speed Lab";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SpeedLab needs background location access to record your ride route and speed continuously, even while your phone is in your pocket or the app is minimized.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This permission allows SpeedLab to ensure your ride data is recorded without interruption while the app runs in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SpeedLab needs location access to track and display your current speed, distance, and route on the map.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "SpeedLab requires accelerometer data to analyze your ride telemetry and detect movements accurately.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Arican.SpeedLab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -280,25 +346,37 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = TM42YPV273;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpeedLab/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Speed Lab";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "SpeedLab needs background location access to record your ride route and speed continuously, even while your phone is in your pocket or the app is minimized.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This permission allows SpeedLab to ensure your ride data is recorded without interruption while the app runs in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SpeedLab needs location access to track and display your current speed, distance, and route on the map.";
+				INFOPLIST_KEY_NSMotionUsageDescription = "SpeedLab requires accelerometer data to analyze your ride telemetry and detect movements accurately.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Arican.SpeedLab;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

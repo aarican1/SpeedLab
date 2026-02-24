@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+enum TabRoute:String , CaseIterable {
+    case home  = "gauge.with.needle.fill"
+    case history = "chart.bar.xaxis"
+}
+
+enum NavRoute:Hashable{
+     case drive
+}

@@ -9,7 +9,17 @@ import SwiftUI
 
 struct NoHistorySessionView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Image(systemName: "car.rear.tilt.road.lanes.curved.right")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 48,height: 48)
+                .foregroundStyle(.text)
+            Text("No driving has been recorded yet.")
+                .font(.spaceBoldFont(size: 20))
+                .fontWeight(.bold)
+                .foregroundStyle(.text)
+        }
     }
 }
 

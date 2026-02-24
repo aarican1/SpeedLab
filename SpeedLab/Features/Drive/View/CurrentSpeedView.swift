@@ -31,20 +31,21 @@ struct CurrentSpeedView: View {
                 
             VStack(spacing: 10){
                 Text("CURRENT SPEED")
-                    .font(.spaceLightFont(size: 20))
+                    .font(.spaceLightFont(size: 14))
                     .fontWeight(.bold)
                     .foregroundColor(.gray)
-                Text("\(Int(speed))")
-                    .font(.spaceBoldFont(size: 60))
+                
+                Text(String(format: "%.0f", speed))
+                    .font(.spaceBoldFont(size: 56))
                                     .foregroundColor(.text)
                 
                 Text("KM/H")
-                    .font(.spaceMediumFont(size: 20))
+                    .font(.spaceMediumFont(size: 16))
                     .foregroundStyle(.acidGreen)
                 
             }
         }
-        .frame(width: 250, height: 250)
+        .frame(width: 200, height: 200)
                 .padding()
     }
     
