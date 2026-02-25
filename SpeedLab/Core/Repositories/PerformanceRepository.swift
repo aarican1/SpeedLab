@@ -121,6 +121,36 @@ class PerformanceRepository: ObservableObject{
             }
             .store(in: &cancellables)
         
+        motionManager.$kalmanSpeed
+            .receive(on:DispatchQueue.main)
+            .filter{ [weak self] _ in !(self?.isPaused ?? false) }
+            .sink { [weak self] currentSpeed in
+                guard let self = self else { return }
+                self.speed = currentSpeed
+                
+                let now = Date()
+                if let start = self.zeroToHundredStartTime, currentSpeed >= 100 {
+                    let duration = now.timeIntervalSince(start)
+                    self.zeroToHundred = duration
+                    
+                    if duration < self.bestZeroToHundred{
+                        self.bestZeroToHundred = duration
+                    }
+                    self.zeroToHundredStartTime = nil
+                }
+                
+                if let start200 = self.zeroToTwoHundredStartTime, currentSpeed >= 200.0 {
+                    let duration = now.timeIntervalSince(start200)
+                    self.zeroToTwoHundred = duration
+                    
+                    if duration < self.bestZeroToTwoHundred {
+                        self.bestZeroToTwoHundred = duration
+                    }
+                    self.zeroToTwoHundredStartTime = nil
+                }
+            }
+            .store(in: &cancellables)
+        
         // --- GPS location updates ---
         locationManager.$location
             .compactMap { $0 }
@@ -129,7 +159,7 @@ class PerformanceRepository: ObservableObject{
                 guard let self = self else { return }
                 
                 let currentSpeedKmH = max(0, newLocation.speed * 3.6)
-                self.speed = currentSpeedKmH
+                
     
                 if currentSpeedKmH > self.maxSpeed { self.maxSpeed = currentSpeedKmH }
                 
@@ -144,7 +174,7 @@ class PerformanceRepository: ObservableObject{
                 self.startLocation = newLocation
                 
                 // Sync accelerometer integration with GPS ground truth
-                self.motionManager.resetIntegration(toSpeed: currentSpeedKmH)
+                self.motionManager.updateWithGps(speed: currentSpeedKmH)
                 
                 self.processPerformanceMetrics(speed: currentSpeedKmH, location: newLocation)
             }
@@ -163,91 +193,25 @@ class PerformanceRepository: ObservableObject{
     
     
     private func processPerformanceMetrics(speed: Double, location: CLLocation) {
-        
-        guard !isPaused else { return }
-        let currentTime = location.timestamp  // GPS timestamp — eliminates system clock drift
-        
-        // --- GPS-based fallback start trigger ---
-        // Only fires if accelerometer didn't already detect movement
-        // (e.g. very gentle start that didn't trigger accel threshold)
-        if speed >= 2.0 && zeroToHundredStartTime == nil {
-            if let v1 = lastProcessedSpeed, let t1 = lastProcessedTime, v1 < 2.0 {
-                let ratio = (0.0 - v1) / (speed - v1)
-                let interpolatedStart = t1.addingTimeInterval(
-                    currentTime.timeIntervalSince(t1) * ratio
-                )
-                zeroToHundredStartTime = interpolatedStart
-                zeroToTwoHundredStartTime = interpolatedStart
-            } else {
+            guard !isPaused else { return }
+            let currentTime = location.timestamp
+            
+            // --- GPS-based fallback start trigger (İvmeölçer kaçırırsa diye yedek) ---
+            if speed >= 2.0 && zeroToHundredStartTime == nil {
                 zeroToHundredStartTime = currentTime
                 zeroToTwoHundredStartTime = currentTime
             }
-        }
-        
-        // --- 0-100 km/h: Accelerometer-assisted end interpolation ---
-        if let start = zeroToHundredStartTime {
-            if speed >= 100 {
-                if let v1 = lastProcessedSpeed, let t1 = lastProcessedTime, v1 < 100 {
-                    // Use accelerometer integrated speed to estimate sub-second crossing
-                    let accelSpeed = motionManager.integratedSpeed
-                    let gpsInterval = currentTime.timeIntervalSince(t1)
-                    
-                    if accelSpeed >= 100 && gpsInterval > 0 {
-                        // Accelerometer crossed 100 before GPS confirmed — use accel timing
-                        // Estimate fraction of interval where accel hit 100
-                        let accelRatio = (100.0 - v1) / (accelSpeed - v1)
-                        let timeOffset = gpsInterval * accelRatio
-                        let finalDuration = t1.timeIntervalSince(start) + timeOffset
-                        self.zeroToHundred = max(0, finalDuration)
-                    } else {
-                        // Standard GPS interpolation (improved with lower threshold)
-                        let ratio = (100.0 - v1) / (speed - v1)
-                        let timeOffset = gpsInterval * ratio
-                        let finalDuration = t1.timeIntervalSince(start) + timeOffset
-                        self.zeroToHundred = max(0, finalDuration)
-                    }
-                    
-                    if self.zeroToHundred < self.bestZeroToHundred {
-                        self.bestZeroToHundred = self.zeroToHundred
-                    }
-                    
-                    self.zeroToHundredStartTime = nil
-                    self.accelStartTriggered = false
-                    self.motionManager.resetMovementDetection()
-                }
-            } else {
-                self.zeroToHundred = currentTime.timeIntervalSince(start)
-            }
-        }
-        
-        // --- 0-200 km/h calculation ---
-        if speed >= 200, let start = zeroToTwoHundredStartTime {
-            if let v1 = lastProcessedSpeed, let t1 = lastProcessedTime, v1 < 200 {
-                let gpsInterval = currentTime.timeIntervalSince(t1)
-                let ratio = (200.0 - v1) / (speed - v1)
-                let timeOffset = gpsInterval * ratio
-                let finalDuration = t1.timeIntervalSince(start) + timeOffset
-                
-                self.zeroToTwoHundred = max(0, finalDuration)
-                self.zeroToTwoHundredStartTime = nil
-            } else {
-                self.zeroToTwoHundred = currentTime.timeIntervalSince(start)
+            
+            // --- Fren Mesafesi ---
+            if speed <= 2.0, let startLoc = brakingStartLocation {
+                self.brakingDistanceHundredToZero = location.distance(from: startLoc)
+                brakingStartLocation = nil
             }
             
-            if self.zeroToTwoHundred < self.bestZeroToTwoHundred {
-                self.bestZeroToTwoHundred = self.zeroToTwoHundred
-            }
-        }
-        
-        // --- Braking distance ---
-        if speed <= 2.0, let startLoc = brakingStartLocation {
-            self.brakingDistanceHundredToZero = location.distance(from: startLoc)
-            brakingStartLocation = nil
-        }
-        
-        self.lastProcessedSpeed = speed
-        self.lastProcessedTime = currentTime
+            self.lastProcessedSpeed = speed
+            self.lastProcessedTime = currentTime
     }
+    
     
     func pauseTracking() {
         isPaused = true

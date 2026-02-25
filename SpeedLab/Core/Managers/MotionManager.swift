@@ -8,6 +8,7 @@
 import Foundation
 import CoreMotion
 import Combine
+import simd
 
 
 final class MotionManager: NSObject, ObservableObject {
@@ -21,12 +22,14 @@ final class MotionManager: NSObject, ObservableObject {
     
     /// Forward (longitudinal) acceleration in m/s² — gravity-free, device-orientation-aware
     @Published var forwardAcceleration: Double = 0.0
-    
-    /// Accumulated velocity from accelerometer integration (km/h)
-    @Published var integratedSpeed: Double = 0.0
+
     
     /// Timestamp when sustained forward movement was first detected
     @Published var movementDetectedAt: Date?
+    
+    //Kalman Filters Speed Value
+    @Published var kalmanSpeed: Double = 0.0
+    
     
     /// Consecutive positive-acceleration sample count for debouncing
     private var sustainedAccelCount: Int = 0
@@ -38,6 +41,9 @@ final class MotionManager: NSObject, ObservableObject {
     
     private var lastUpdateTime: Date?
     
+    private var forwardDirection: simd_double3?
+    private var kalmanFilter = SpeedKalmanFilter()
+    
     override init() {
         super.init()
         self.isAvaliable = motionManager.isDeviceMotionAvailable
@@ -46,15 +52,17 @@ final class MotionManager: NSObject, ObservableObject {
     
     func start() {
         guard motionManager.isDeviceMotionAvailable else { return }
-        
+            
         motionManager.deviceMotionUpdateInterval = 0.01  // 100 Hz
         
         // Reset state
-        integratedSpeed = 0.0
         movementDetectedAt = nil
         sustainedAccelCount = 0
         lastUpdateTime = nil
         forwardAcceleration = 0.0
+        forwardDirection = nil
+        kalmanFilter.reset(to: 0.0)
+        kalmanSpeed = 0.0
         
         motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
             if let error = error {
@@ -74,76 +82,75 @@ final class MotionManager: NSObject, ObservableObject {
             let gz = motion.userAcceleration.z + motion.gravity.z
             self.totalGForce = sqrt(gx * gx + gy * gy + gz * gz)
             
-            // --- Forward acceleration (gravity-subtracted userAcceleration) ---
-            // Project userAcceleration onto gravity vector to get longitudinal component
-            // This works in any device orientation
-            let gravMag = sqrt(
-                motion.gravity.x * motion.gravity.x +
-                motion.gravity.y * motion.gravity.y +
-                motion.gravity.z * motion.gravity.z
-            )
+            let userAcc = simd_double3(motion.userAcceleration.x,
+                                       motion.userAcceleration.y,
+                                       motion.userAcceleration.z)
             
-            guard gravMag > 0.01 else { return }
+            let gravity = simd_double3(motion.gravity.x,
+                                       motion.gravity.y,
+                                       motion.gravity.z)
             
-            // User acceleration magnitude along the horizontal plane
-            // For a phone lying flat or in a holder, forward accel ≈ userAcceleration projected
-            // onto the horizontal plane. We use the total userAcceleration magnitude as a
-            // simplified approach — works well for car mounting scenarios.
-            let userAccMag = sqrt(
-                motion.userAcceleration.x * motion.userAcceleration.x +
-                motion.userAcceleration.y * motion.userAcceleration.y +
-                motion.userAcceleration.z * motion.userAcceleration.z
-            )
+            let gNorm = simd_normalize(gravity)
             
-            // Determine sign: dot product of userAcceleration and gravity
-            // Positive dot = decelerating (falling toward gravity), Negative dot = accelerating (pushed away)
-            // For a car: forward acceleration pushes you back into seat → specific sign pattern
-            // We use absolute magnitude with sign from the dominant horizontal axis
-            let forwardAcc = userAccMag * 9.81  // Convert g to m/s²
-            self.forwardAcceleration = forwardAcc
+            guard simd_length(gravity) > 0.01 else { return }
             
-            // --- Velocity integration ---
-            let now = Date()
-            if let lastTime = self.lastUpdateTime {
-                let dt = now.timeIntervalSince(lastTime)
-                if dt > 0 && dt < 0.1 { // Sanity check: skip if dt is unreasonable
-                    let deltaV = forwardAcc * dt * 3.6  // m/s² → km/h
-                    self.integratedSpeed += deltaV
-                    
-                    // Clamp to prevent runaway drift
-                    if self.integratedSpeed < 0 { self.integratedSpeed = 0 }
-                }
-            }
-            self.lastUpdateTime = now
+            let dotProduct = simd_dot(userAcc, gNorm)
+            let horizontalAcc = userAcc - (gNorm * dotProduct)
             
-            // --- Movement detection (debounced) ---
-            if self.movementDetectedAt == nil {
-                if forwardAcc > MotionManager.movementThreshold {
+            let horizontalMag = simd_length(horizontalAcc)
+            
+            
+            if self.forwardDirection == nil {
+                if horizontalMag > MotionManager.movementThreshold {
                     self.sustainedAccelCount += 1
                     if self.sustainedAccelCount >= MotionManager.sustainedSampleCount {
-                        // Sustained acceleration detected — timestamp the start
-                        // Backtrack to when acceleration first crossed threshold
+                        self.forwardDirection = simd_normalize(horizontalAcc)
                         let backtrackInterval = Double(MotionManager.sustainedSampleCount) * 0.01
-                        self.movementDetectedAt = now.addingTimeInterval(-backtrackInterval)
+                        self.movementDetectedAt = Date().addingTimeInterval(-backtrackInterval)
                     }
                 } else {
                     self.sustainedAccelCount = 0
                 }
+                
+                self.forwardAcceleration = 0.0
+                return
             }
+            
+            if let forwardDir = self.forwardDirection {
+                let forwardAccG = simd_dot(horizontalAcc, forwardDir)
+                let forwardAcc = forwardAccG * 9.81
+                
+                self.forwardAcceleration = forwardAcc
+                
+                let now  = Date()
+                if let lastTime = self.lastUpdateTime {
+                    let dt = now.timeIntervalSince(lastTime)
+                    
+                    if dt > 0 && dt < 0.1 {
+                        let deltaV = forwardAcc * dt * 3.6
+                        self.kalmanFilter.predict(deltaV: deltaV)
+                        if self.kalmanFilter.speed < 0 { self.kalmanFilter.speed = 0 }
+                        
+                        self.kalmanSpeed = self.kalmanFilter.speed
+                    }
+                }
+                self.lastUpdateTime = now
+            }
+            
         }
     }
     
-    /// Reset accelerometer integration (call when GPS confirms a reliable speed)
-    func resetIntegration(toSpeed speed: Double) {
-        integratedSpeed = speed
+    func updateWithGps(speed:Double){
+        kalmanFilter.update(gpsSpeed: speed)
+        self.kalmanSpeed = kalmanFilter.speed
     }
     
     /// Reset movement detection for a new measurement
     func resetMovementDetection() {
         movementDetectedAt = nil
         sustainedAccelCount = 0
-        integratedSpeed = 0.0
         lastUpdateTime = nil
+        forwardDirection = nil
     }
     
     func stop() {
@@ -152,9 +159,11 @@ final class MotionManager: NSObject, ObservableObject {
         self.acceleration = .init()
         self.totalGForce = 0.0
         self.forwardAcceleration = 0.0
-        self.integratedSpeed = 0.0
         self.movementDetectedAt = nil
         self.sustainedAccelCount = 0
         self.lastUpdateTime = nil
+        self.forwardDirection = nil
+        self.kalmanSpeed = 0.0
+        self.kalmanFilter.reset(to: 0.0)
     }
 }
